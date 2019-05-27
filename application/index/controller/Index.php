@@ -7,6 +7,10 @@ class Index extends Controller
 {
     public function index()
     {
-        return $this -> fetch();
+        return 'abc';
+    }
+    public function edit()
+    {
+        return 'edit方法';
     }
 }

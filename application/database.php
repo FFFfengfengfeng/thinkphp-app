@@ -15,7 +15,7 @@ return [
     // 服务器地址
     'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => 'feng_vue_jd',
+    'database'        => 'feng_store',
     // 用户名
     'username'        => 'feng',
     // 密码

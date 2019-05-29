@@ -12,9 +12,9 @@
 // 应用公共文件
 
 // 封装接口成功返回
-function apiSuccess($data, $msg) {
+function apiSuccess($data) {
     $json = array(
-        'msg'    => $msg,
+        'msg'    => '操作成功',
         'data'   => $data,
         'code'   => '10000',
         'status' => '1'

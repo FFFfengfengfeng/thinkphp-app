@@ -25,6 +25,13 @@ Route::rule('admin/user/add','admin/User/add');
 // 登录
 Route::rule('admin/login/enter','admin/Login/enter');
 
+/**
+ * Classify控制器
+ */
+
+// 分类添加
+Route::rule('admin/classify/add','admin/Classify/add');
+
 //return [
 //    '__pattern__' => [
 //        'name' => '\w+',

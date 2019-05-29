@@ -18,6 +18,13 @@ use think\Route;
 
 Route::rule('admin/user/add','admin/User/add');
 
+/**
+ * Login控制器
+ */
+
+// 登录
+Route::rule('admin/login/enter','admin/Login/enter');
+
 //return [
 //    '__pattern__' => [
 //        'name' => '\w+',

@@ -10,3 +10,30 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+
+// 封装接口成功返回
+function apiSuccess($data, $msg) {
+    $json = array(
+        'msg'    => $msg,
+        'data'   => $data,
+        'code'   => '10000',
+        'status' => '1'
+    );
+
+    return json($json);
+}
+// 封装接口返回失败
+function apiError($data, $msg, $code) {
+    $json = array(
+        'msg'    => $msg,
+        'data'   => $data,
+        'code'   => $code,
+        'status' => '0'
+    );
+
+    return json($json);
+}
+// 生成令牌
+function createToken($id) {
+    return $id . time();
+}

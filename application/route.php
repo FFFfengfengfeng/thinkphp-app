@@ -10,13 +10,14 @@
 // +----------------------------------------------------------------------
 
 use think\Route;
-// 注册路由到index模块的News控制器的read操作
 
-//Route::get('/', function () {
-//   return '首页';
-//});
+/**
+ * User控制器
+ */
 
+// 管理员添加
 Route::rule('admin/user/add','admin/User/add');
+Route::rule('admin/user/query','admin/User/query');
 
 /**
  * Login控制器

@@ -17,7 +17,7 @@ class Login extends Controller
      */
     public function enter()
     {
-        $map['username'] = $_REQUEST['username'];
+        $map['name'] = $_REQUEST['name'];
 
         $user = Db::table('f_admin_user') -> where($map) -> find();
 

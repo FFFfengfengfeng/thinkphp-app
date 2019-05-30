@@ -37,7 +37,6 @@ class Classify extends Controller
         $result = $classify -> save([
             'name' => $name,
             'parent_id' => $parent_id,
-            'create_time' => time()
         ]);
 
         if ($result == 1) {

@@ -68,7 +68,7 @@ class User extends Controller
      * 管理员列表
      * code: 11001 缺少token;
      */
-    public function query()
+    public function lists()
     {
         $keyword = '';
         $size = 10;
@@ -88,5 +88,86 @@ class User extends Controller
                          -> paginate($size);
 
         return $json = apiSuccess($list);
+    }
+
+    /**
+     * 模块admin
+     * 通过id查询管理员
+     * code: 11001 缺少token;
+     *       11002 缺少id;
+     *       11003 无效的token
+     */
+    public function query()
+    {
+        if (!isset($_REQUEST['token'])) {
+            return apiError(null, '缺少token', '11001');
+        }
+        if (!isset($_REQUEST['id'])) {
+            return apiError(null, '缺少id', '11002');
+        }
+
+        $operator = UserModel::where('token', $_REQUEST['token']) -> find();
+
+        if (empty($operator)) {
+            return apiError(null, '无效的token', '11003');
+        }
+
+        $user = UserModel::where('id', $_REQUEST['id']) -> find();
+
+        return $json = apiSuccess($user);
+    }
+
+    /**
+     * 模块admin
+     * 修改管理员
+     * code: 11001 缺少token;
+     *       11002 缺少id;
+     *       11003 无效的token;
+     *       11004 密码不能为空;
+     *       11005 选择级别;
+     *       11006 不能设置为超级管理员
+     *       11007 无效的token;
+     *       11008 权限不足;
+     */
+    public function edit()
+    {
+        if (!isset($_REQUEST['token'])) {
+            return apiError(null, '缺少token', '11001');
+        }
+        if (!isset($_REQUEST['id'])) {
+            return apiError(null, '缺少id', '11002');
+        }
+        if (!isset($_REQUEST['name'])) {
+            return apiError(null, '用户名不能为空', '11003');
+        }
+        if (!isset($_REQUEST['password'])) {
+            return apiError(null, '密码不能为空', '11004');
+        }
+        if (!isset($_REQUEST['level'])) {
+            return apiError(null, '选择级别', '11005');
+        }
+        if ($_REQUEST['level'] == 1) {
+            return apiError(null, '不能设置为超级管理员', '11006');
+        }
+
+        $operator = UserModel::where('token', $_REQUEST['token']) -> find();
+
+        if (empty($operator)) {
+            return apiError(null, '无效的token', '11006');
+        }
+        if ($operator -> level != 1) {
+            return apiError(null, '权限不足', '11007');
+        }
+
+        $user = new UserModel;
+        $user -> save([
+            'name' => $_REQUEST['name'],
+            'level' => $_REQUEST['level'],
+            'password' => $_REQUEST['password'],
+        ], [
+            'id' => $_REQUEST['id']
+        ]);
+
+        return $json = apiSuccess($user);
     }
 }

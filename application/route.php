@@ -17,7 +17,12 @@ use think\Route;
 
 // 管理员添加
 Route::rule('admin/user/add','admin/User/add');
+// 管理员列表
+Route::rule('admin/user/lists','admin/User/lists');
+// 通过id查询管理员
 Route::rule('admin/user/query','admin/User/query');
+// 编辑管理员
+Route::rule('admin/user/edit','admin/User/edit');
 
 /**
  * Login控制器

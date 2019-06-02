@@ -140,9 +140,9 @@ class User extends Controller
         if (!isset($_REQUEST['name'])) {
             return apiError(null, '用户名不能为空', '11003');
         }
-        if (!isset($_REQUEST['password'])) {
-            return apiError(null, '密码不能为空', '11004');
-        }
+//        if (!isset($_REQUEST['password'])) {
+//            return apiError(null, '密码不能为空', '11004');
+//        }
         if (!isset($_REQUEST['level'])) {
             return apiError(null, '选择级别', '11005');
         }
@@ -163,11 +163,57 @@ class User extends Controller
         $user -> save([
             'name' => $_REQUEST['name'],
             'level' => $_REQUEST['level'],
-            'password' => $_REQUEST['password'],
+//            'password' => $_REQUEST['password'],
         ], [
             'id' => $_REQUEST['id']
         ]);
 
         return $json = apiSuccess($user);
+    }
+
+    /**
+     * 模块admin
+     * 删除管理员
+     * code: 11001 缺少token;
+     *       11002 缺少id;
+     *       11003 无效的token;
+     *       11004 密码不能为空;
+     *       11005 选择级别;
+     *       11006 不能设置为超级管理员
+     *       11007 无效的token;
+     *       11008 权限不足;
+     */
+    public function delete()
+    {
+        if (!isset($_REQUEST['token'])) {
+            return apiError(null, '缺少token', '11001');
+        }
+        if (!isset($_REQUEST['id'])) {
+            return apiError(null, '缺少id', '11002');
+        }
+
+        $operator = UserModel::where('token', $_REQUEST['token']) -> find();
+        $user = UserModel::where('id', $_REQUEST['id']) -> find();
+
+        if (empty($operator)) {
+            return apiError(null, '无效的token', '11003');
+        }
+        if ($operator -> level != 1) {
+            return apiError(null, '权限不足', '11004');
+        }
+        if (empty($user)) {
+            return apiError(null, '没有改用户', '11005');
+        }
+        if ($user -> level == 1) {
+            return apiError(null, '超级管理员不能删除', '11006');
+        }
+
+        $result = UserModel::destroy($_REQUEST['id']);
+
+        if ($result == 1) {
+            return apiSuccess($result);
+        } else {
+            return apiError($result, '删除失败', '11006');
+        }
     }
 }

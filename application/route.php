@@ -23,6 +23,8 @@ Route::rule('admin/user/lists','admin/User/lists');
 Route::rule('admin/user/query','admin/User/query');
 // 编辑管理员
 Route::rule('admin/user/edit','admin/User/edit');
+// 删除管理员
+Route::rule('admin/user/delete','admin/User/delete');
 
 /**
  * Login控制器

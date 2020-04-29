@@ -1,0 +1,17 @@
+{
+  "name": "ts-weather",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/FFFfengfengfeng/ts-weather.git",
+  "author": "ffffengfengfeng <1098865109@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^13.13.4",
+    "axios": "^0.19.2",
+    "colors": "^1.4.0",
+    "commander": "^5.1.0",
+    "ts-node": "^8.9.1",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
+  }
+}
